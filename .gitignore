@@ -1,0 +1,53 @@
+# Rider specific
+.idea/
+*.sln.iml
+
+# Build artifacts
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.vsp
+*.vspx
+*.vspscc
+*.vssscc
+
+# ASP.NET specific
+appsettings.json
+appsettings.Development.json
+
+# Packages
+*.nupkg
+packages/
+
+# VS Code settings
+.vscode/
+
+# Dotnet tools
+.dotnet_tools/
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# Debugging
+*.tmd
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.bak
+*.cache
+*.tmp
+*.swp
+
+# Rider settings
+.idea/
