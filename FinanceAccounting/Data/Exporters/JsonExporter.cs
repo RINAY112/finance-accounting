@@ -6,6 +6,8 @@ namespace FinanceAccounting.Data.Exporters;
 
 public class JsonExporter : DataExporter
 {
+    public override string Format => ".json";
+    
     protected override void Write<T>(StreamWriter writer, IReadOnlyCollection<T> data)
     {
         var options = new JsonSerializerOptions

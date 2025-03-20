@@ -7,6 +7,9 @@ namespace FinanceAccounting.Data.Exporters;
 
 public class CsvExporter : DataExporter
 {
+    
+    public override string Format => ".csv";
+    
     protected override void Write<T>(StreamWriter writer, IReadOnlyCollection<T> data)
     {
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
@@ -23,4 +26,4 @@ public class CsvExporter : DataExporter
             csv.WriteRecords(data);
         }
     }
-}
+} 

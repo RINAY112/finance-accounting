@@ -6,9 +6,9 @@ namespace FinanceAccounting.Factories;
 
 public class OperationFactory : IOperationFactory
 {
-    public Operation CreateOperation(int id, decimal amount, DateTime date, int baknAccountId, int categoryId, string description)
+    public Operation CreateOperation(int id, decimal amount, DateTime date, int bankAccountId, int categoryId, string description)
     {
-        return new Operation(id, amount, date, baknAccountId, categoryId, description);
+        return new Operation(id, amount, date, bankAccountId, categoryId, description);
     }
 
     public Operation CreateOperation(in OperationDto dto)

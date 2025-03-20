@@ -16,23 +16,35 @@ public class BankAccountFacade
         _bankAccountService = bankAccountService;
         _dataTransferManager = dataTransferManager;
     }
+    
+    public IReadOnlyCollection<BankAccount> BankAccounts => _bankAccountService.BankAccounts;
 
-    public void Import(string filePath)
+    public List<BankAccount> Import(string filePath)
     {
         var data = _dataTransferManager.Import<BankAccountDto>(filePath);
+        List<BankAccount> res = new();
         foreach (var item in data)
         {
-            CreateAccount(item);
+            try
+            {
+                res.Add(CreateAccount(item));
+            }
+            catch (Exception ex)
+            {
+                ConsoleHelper.PrintError(ex.Message);
+            }
         }
+
+        return res;
     }
 
     public void Export(string filePath) => _dataTransferManager.Export<BankAccount>(filePath, _bankAccountService.BankAccounts);
     
-    public void CreateAccount(string name, decimal balance = 0) => _bankAccountService.CreateAccount(name, balance);
+    public BankAccount CreateAccount(int id, string name, decimal balance = 0) => _bankAccountService.CreateAccount(id, name, balance);
     
-    public void CreateAccount(in BankAccountDto dto) => CreateAccount(dto.Name, dto.Balance);
+    public BankAccount CreateAccount(in BankAccountDto dto) => CreateAccount(dto.Id, dto.Name, dto.Balance);
     
-    public void UpdateAccountName(int accountId, in string newName) => _bankAccountService.UpdateAccountName(accountId, newName);
+    public void UpdateAccountName(int accountId, string newName) => _bankAccountService.UpdateAccountName(accountId, newName);
     
     public void DepositToAccount(int accountId, decimal amount) => _bankAccountService.Deposit(accountId, amount);
     

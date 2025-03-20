@@ -7,7 +7,7 @@ public interface ICategoryService
 {
     IReadOnlyCollection<Category> Categories { get; }
     
-    Category CreateCategory(string name, CategoryType type);
+    Category CreateCategory(int id, string name, CategoryType type);
     
     Category CreateCategory(in CategoryDto dto);
     

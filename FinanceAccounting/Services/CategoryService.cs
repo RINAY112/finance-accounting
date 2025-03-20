@@ -9,25 +9,27 @@ public class CategoryService : ICategoryService
 {
     private readonly List<Category> _categories = new List<Category>();
     private readonly ICategoryFactory _factory;
-    private int _nextCategoryId = 1;
     
-    public IReadOnlyCollection<Category> Categories { get => _categories; }
+    public IReadOnlyCollection<Category> Categories => _categories;
 
     public CategoryService(ICategoryFactory factory) => _factory = factory;
     
-    public Category CreateCategory(string name, CategoryType type)
+    public Category CreateCategory(int id, string name, CategoryType type)
     {
+        if (_categories.Any(c => c.Id == id))
+            throw new InvalidOperationException($"Category with ID '{id}' already exists");
+        
         if (_categories.Any(c =>
                 c.Name.Equals(name, StringComparison.OrdinalIgnoreCase) &&
                 c.Type == type))
             throw new InvalidOperationException($"Category with name '{name}' and type '{type}' already exists.");
 
-        var category = _factory.CreateCategory(_nextCategoryId++, name, type);
+        var category = _factory.CreateCategory(id, name, type);
         _categories.Add(category);
         return category;
     }
     
-    public Category CreateCategory(in CategoryDto dto) => CreateCategory(dto.Name, dto.Type);
+    public Category CreateCategory(in CategoryDto dto) => CreateCategory(dto.Id, dto.Name, dto.Type);
 
     public Category GetCategory(int id)
     {

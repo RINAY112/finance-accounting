@@ -3,6 +3,7 @@ using FinanceAccounting.Data.Converters;
 using FinanceAccounting.Models;
 
 namespace FinanceAccounting.Data.ClassMaps;
+
 public sealed class CategoryMap : ClassMap<Category>
 {
     public CategoryMap()

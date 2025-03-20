@@ -7,6 +7,8 @@ namespace FinanceAccounting.Data.Importers;
 
 public class CsvImporter : DataImporter
 {
+    public override string Format => ".csv";
+    
     protected override List<T> Read<T>(StreamReader reader)
     {
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)

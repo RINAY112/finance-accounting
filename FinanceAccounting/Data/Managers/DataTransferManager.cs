@@ -8,9 +8,9 @@ public class DataTransferManager : IDataTransferManager
     private readonly Dictionary<string, IDataImporter> _importers = new();
     private readonly Dictionary<string, IDataExporter> _exporters = new();
     
-    public void RegisterImporter(string extension, IDataImporter importer) => _importers[extension] = importer;
+    public void RegisterImporter(IDataImporter importer) => _importers[importer.Format] = importer;
     
-    public void RegisterExporter(string extension, IDataExporter exporter) => _exporters[extension] = exporter;
+    public void RegisterExporter(IDataExporter exporter) => _exporters[exporter.Format] = exporter;
 
     public List<T> Import<T>(string filePath)
     {

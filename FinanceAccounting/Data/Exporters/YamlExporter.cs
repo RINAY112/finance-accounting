@@ -6,6 +6,8 @@ namespace FinanceAccounting.Data.Exporters;
 
 public class YamlExporter : DataExporter
 {
+    public override string Format => ".yaml";
+    
     protected override void Write<T>(StreamWriter writer, IReadOnlyCollection<T> data)
     {
         var serializer = new SerializerBuilder()

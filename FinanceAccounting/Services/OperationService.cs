@@ -8,23 +8,24 @@ namespace FinanceAccounting.Services;
 public class OperationService : IOperationService
 {
     private readonly List<Operation> _operations = new List<Operation>();
-    private int _nextOperationId = 1;
-    public IReadOnlyCollection<Operation> Operations { get => _operations; }
+    public IReadOnlyCollection<Operation> Operations => _operations; 
     
     private IOperationFactory _factory;
     
     public OperationService(IOperationFactory factory) => _factory = factory;
 
-    public Operation CreateOperation(decimal amount, DateTime date, int bankAccountId, int categoryId, string description = "")
+    public Operation CreateOperation(int id, decimal amount, DateTime date, int bankAccountId, int categoryId, string description = "")
     {
-        var operation = new Operation(_nextOperationId++, amount, date, bankAccountId, categoryId, description);
+        if (_operations.Any(o => o.Id == id)) 
+            throw new InvalidOperationException($"Operation with ID '{id}' already exists");
+        var operation = _factory.CreateOperation(id, amount, date, bankAccountId, categoryId, description);
         _operations.Add(operation);
         return operation;
     }
 
     public Operation CreateOperation(in OperationDto dto)
     {
-        return CreateOperation(dto.Amount, dto.Date, dto.BankAccountId, dto.CategoryId, dto.Description);
+        return CreateOperation(dto.Id, dto.Amount, dto.Date, dto.BankAccountId, dto.CategoryId, dto.Description);
     }
 
     public Operation GetOperation(int id)

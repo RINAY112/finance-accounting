@@ -12,18 +12,18 @@ public class Operation
     public DateTime Date => _date;
     
     private string _description;
-
-    public string Description
-    {
-        get => _description;
-        set => _description = value ?? string.Empty;
-    }
     
     private int _bankAccountId;
     public int BankAccountId  => _bankAccountId;
     
     private int _categoryId;
     public int CategoryId => _categoryId;
+    
+    public string Description
+    {
+        get => _description;
+        set => _description = value ?? string.Empty;
+    }
 
     public Operation(int id, decimal amount, DateTime date, int bankAccountId, int categoryId, string description = "")
     {
@@ -33,8 +33,11 @@ public class Operation
         _date = date;
         _bankAccountId = bankAccountId;
         _categoryId = categoryId;
-        _description = description;
+        Description = description;
         _id = id;
     }
 
+    public override string ToString() => $"ID: {_id} | Amount: {_amount} | Creation date: {_date} | " +
+                                         $"Account ID: {_bankAccountId} | Category ID: {_categoryId}" +
+                                         $"\nDescription:\n\"{_description}\"";
 }

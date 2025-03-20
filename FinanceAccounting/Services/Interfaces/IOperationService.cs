@@ -7,7 +7,7 @@ public interface IOperationService
 {
     IReadOnlyCollection<Operation> Operations { get; }
     
-    Operation CreateOperation(decimal amount, DateTime date, int accountId, int categoryId, string description = "");
+    Operation CreateOperation(int id, decimal amount, DateTime date, int accountId, int categoryId, string description = "");
     
     Operation CreateOperation(in OperationDto dto);
     

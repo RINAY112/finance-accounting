@@ -6,6 +6,8 @@ namespace FinanceAccounting.Data.Importers;
 
 public class YamlImporter : DataImporter
 {
+    public override string Format => ".yaml";
+    
     protected override List<T> Read<T>(StreamReader reader)
     {
         var deserializer = new DeserializerBuilder()

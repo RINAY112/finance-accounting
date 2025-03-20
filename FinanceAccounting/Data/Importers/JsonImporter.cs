@@ -6,6 +6,8 @@ namespace FinanceAccounting.Data.Importers;
 
 public class JsonImporter : DataImporter
 {
+    public override string Format => ".json";
+    
     protected override List<T> Read<T>(StreamReader reader)
     {
         string jsonString = reader.ReadToEnd();

@@ -23,6 +23,8 @@ public class BankAccount
 
     public BankAccount(int id, string name, decimal balance = 0)
     {
+        if (balance < 0) 
+            throw new ArgumentException("Account balance cannot be negative.");
         Name = name;
         _balance = balance;
         _id = id;
@@ -31,9 +33,7 @@ public class BankAccount
     public void Deposit(decimal amount)
     {
         if (amount <= 0)
-        {
             throw new ArgumentException("Deposit amount must be positive.", nameof(amount));
-        }
 
         _balance += amount;
     }
@@ -41,13 +41,12 @@ public class BankAccount
     public void Withdraw(decimal amount)
     {
         if (amount <= 0)
-        {
             throw new ArgumentException("Withdrawal amount must be positive.", nameof(amount));
-        }
+        
         if (Balance < amount)
-        {
             throw new InvalidOperationException("Insufficient funds in the account.");
-        }
         _balance -= amount;
     }
+    
+    public override string ToString() => $"ID: {_id} | Name: {_name} | Balance: {_balance}";
 }

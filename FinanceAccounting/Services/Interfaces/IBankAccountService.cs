@@ -7,7 +7,7 @@ public interface IBankAccountService
 {
     IReadOnlyCollection<BankAccount> BankAccounts { get; }
     
-    BankAccount CreateAccount(string name, decimal initialBalance = 0);
+    BankAccount CreateAccount(int id, string name, decimal initialBalance = 0);
     
     BankAccount CreateAccount(in BankAccountDto dto);
     

@@ -9,20 +9,21 @@ public class BankAccountService : IBankAccountService
 {
     private readonly List<BankAccount> _bankAccounts = new();
     private readonly IBankAccountFactory _factory;
-    private int _nextAccountId = 1;
     
-    public IReadOnlyCollection<BankAccount> BankAccounts { get => _bankAccounts; }
+    public IReadOnlyCollection<BankAccount> BankAccounts => _bankAccounts; 
 
     public BankAccountService(IBankAccountFactory factory) => _factory = factory;
 
-    public BankAccount CreateAccount(string name, decimal balance = 0)
+    public BankAccount CreateAccount(int id, string name, decimal balance = 0)
     {
-        var account = _factory.CreateAccount(_nextAccountId++, name, balance);
+        if (_bankAccounts.Any(b => b.Id == id))
+            throw new InvalidOperationException($"Account with ID '{id}' already exists.");
+        var account = _factory.CreateAccount(id, name, balance);
         _bankAccounts.Add(account);
         return account;
     }
 
-    public BankAccount CreateAccount(in BankAccountDto dto) => CreateAccount(dto.Name, dto.Balance);
+    public BankAccount CreateAccount(in BankAccountDto dto) => CreateAccount(dto.Id, dto.Name, dto.Balance);
 
     public void UpdateAccountName(int id, string newName)
     {

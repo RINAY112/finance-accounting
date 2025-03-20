@@ -5,6 +5,8 @@ namespace FinanceAccounting.Data.Exporters;
 
 public abstract class DataExporter : IDataExporter
 {
+    public abstract string Format { get; }
+    
     public void Export<T>(string filePath, IReadOnlyCollection<T> data)
     {
         using (var writer = new StreamWriter(filePath))

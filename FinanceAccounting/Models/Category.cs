@@ -33,4 +33,6 @@ public class Category
         Name = name;
         _type = type;
     }
+    
+    public override string ToString() => $"ID: {_id} | Name: {_name} | Type: {_type}";
 }
